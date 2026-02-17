@@ -51,7 +51,7 @@ app.use(cors({
             }
 
             // Check manual allowed origins from env (e.g. Shopify domain)
-            const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+            const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [];
             if (allowedOrigins.includes(origin)) {
                 return callback(null, true);
             }
