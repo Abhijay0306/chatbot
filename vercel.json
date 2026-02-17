@@ -6,7 +6,9 @@
             "use": "@vercel/node",
             "config": {
                 "maxLambdaSize": "50mb",
-                "supportsResponseStreaming": true
+                "supportsResponseStreaming": true,
+                "maxDuration": 60,
+                "memory": 1024
             }
         }
     ],
@@ -20,11 +22,5 @@
             "destination": "/api/index.js"
         }
     ],
-    "outputDirectory": "public",
-    "functions": {
-        "api/index.js": {
-            "maxDuration": 60,
-            "memory": 1024
-        }
-    }
+    "outputDirectory": "public"
 }
