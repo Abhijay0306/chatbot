@@ -50,15 +50,22 @@ app.use(cors({
                 return callback(null, true);
             }
 
-            // Check manual allowed origins from env (e.g. Shopify domain)
+            // Check manual allowed origins from env
             const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [];
+
+            // EMERGENCY FALLBACK: Hardcode the user's specific shopify domain to guarantee it works
+            allowedOrigins.push('https://dev-trialadid.myshopify.com');
+
             if (allowedOrigins.includes(origin)) {
                 return callback(null, true);
             }
-        } catch (e) { /* invalid origin URL, fall through to reject */ }
-        callback(new Error('Not allowed by CORS'));
+
+            console.error(`BLOCKED CORS ORIGIN: ${origin}`);
+        } catch (e) { console.error('CORS Error:', e); }
+        callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'], // Explicitly allow OPTIONS
 }));
 
 // === Rate Limiting ===
