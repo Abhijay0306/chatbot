@@ -49,6 +49,12 @@ app.use(cors({
             ) {
                 return callback(null, true);
             }
+
+            // Check manual allowed origins from env (e.g. Shopify domain)
+            const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+            if (allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
         } catch (e) { /* invalid origin URL, fall through to reject */ }
         callback(new Error('Not allowed by CORS'));
     },
