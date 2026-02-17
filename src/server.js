@@ -32,31 +32,29 @@ app.use(helmet({
 
 // === CORS ===
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin) return callback(null, true);
-        if (config.allowedOrigins.includes(origin) || config.nodeEnv === 'development') {
-            return callback(null, true);
-        }
-        // Auto-allow hosted platform origins
-        try {
-            const originHost = new URL(origin).hostname;
-            const selfHosts = ['localhost', '127.0.0.1'];
-            if (
-                selfHosts.includes(originHost) ||
-                originHost.endsWith('.railway.app') ||
-                originHost.endsWith('.up.railway.app') ||
-                originHost.endsWith('.vercel.app')
-            ) {
-                return callback(null, true);
-            }
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true); // Allow non-browser requests
 
+        try {
             // Check manual allowed origins from env
             const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [];
 
-            // EMERGENCY FALLBACK: Hardcode the user's specific shopify domain to guarantee it works
+            // EMERGENCY FALLBACK: Hardcode the user's specific shopify domain
             allowedOrigins.push('https://dev-trialadid.myshopify.com');
 
-            if (allowedOrigins.includes(origin)) {
+            // Strict check: origin must match exactly OR be a subdomain
+            const isAllowed = allowedOrigins.some(allowed => {
+                if (origin === allowed) return true;
+                if (origin.endsWith('.' + allowed.replace('https://', '').replace('http://', ''))) return true; // Loose subdomain check
+                // Better subdomain check:
+                try {
+                    const originUrl = new URL(origin);
+                    const allowedUrl = new URL(allowed);
+                    return originUrl.hostname.endsWith(allowedUrl.hostname);
+                } catch (e) { return false; }
+            });
+
+            if (isAllowed) {
                 return callback(null, true);
             }
 
@@ -65,7 +63,7 @@ app.use(cors({
         callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS'], // Explicitly allow OPTIONS
+    methods: ['GET', 'POST', 'OPTIONS'],
 }));
 
 // === Rate Limiting ===
@@ -159,8 +157,8 @@ const TECHNICAL_PATTERNS = [
     /\b(pmp|tp-?2|cr-?150|pfr|upc|ph-?3|ph-?1000|load\s*control|power\s*sensor|power\s*cell)/i,
     /\b(overload|underload|protection|sensor|relay|alarm|trip|fault|error|fail)/i,
     /\b(manual|datasheet|diagram|schematic|drawing|part\s*number|model)/i,
-    /\b(motor|pump|compressor|conveyor|fan|blower|machine|application)/i,
-    /\b(modbus|communication|signal|output|input|analog|digital|setpoint)/i,
+    /\b(motor|pump|compressor|conveyor|fan|blower|machine|application|process|system|solution)/i,
+    /\b(modbus|communication|signal|output|input|analog|digital|setpoint|network|data|server|datacenter|it|tech)/i,
     /\b(how\s+(to|do|does|can|should)|what\s+(is|are|does)|which|where)/i,
 ];
 
@@ -284,7 +282,11 @@ app.post('/api/chat/stream', preProcessMiddleware, async (req, res) => {
         let fullResponse = '';
 
         for await (const chunk of stream) {
-            const delta = chunk.choices?.[0]?.delta?.content || '';
+            let delta = chunk.choices?.[0]?.delta?.content || '';
+            // Guard against object deltas (fixes [object Object] bug)
+            if (typeof delta !== 'string') {
+                try { delta = JSON.stringify(delta); } catch (e) { delta = ''; }
+            }
             if (delta) {
                 fullResponse += delta;
                 res.write(`data: ${JSON.stringify({ chunk: delta, done: false })}\n\n`);

@@ -142,12 +142,14 @@ function buildSourceReferences(results) {
         const category = r.document.metadata?.category || '';
         // Build a URL-safe path to the document
         const docPath = category ? `${category}/${source}` : source;
+        // Use GitHub raw content URL as requested
+        const githubUrl = `https://github.com/Abhijay0306/chatbot/raw/main/data/Documents/${docPath}`;
 
         sources.push({
             filename: source,
             category: category || 'General',
             section: r.document.text?.substring(0, 120)?.replace(/\n/g, ' ').trim() + '...',
-            url: `/documents/${encodeURIComponent(docPath)}`,
+            url: githubUrl, // Updated to GitHub URL
             score: r.score?.toFixed(3),
         });
     }
