@@ -27,6 +27,12 @@
 
         init(options = {}) {
             Object.assign(this.config, options);
+
+            // Remove trailing slash from apiUrl if present (fixes double slash redirects)
+            if (this.config.apiUrl && this.config.apiUrl.endsWith('/')) {
+                this.config.apiUrl = this.config.apiUrl.slice(0, -1);
+            }
+
             this._injectStyles();
             this._buildUI();
             this._bindEvents();
