@@ -68,10 +68,8 @@ app.use('/api/', limiter);
 // === Body Parsing ===
 app.use(express.json({ limit: '10kb' }));
 
-// Static files: Vercel CDN handles public/ via vercel.json, only serve locally
-if (!isVercel) {
-    app.use(express.static(path.join(__dirname, '..', 'public')));
-}
+// Static files: Serve public/ in all environments (including Vercel)
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // === Serve Documents (for source reference links) ===
 app.use('/documents', express.static(config.paths.documentsDir, {
@@ -326,12 +324,10 @@ app.post('/api/ingest', async (req, res) => {
     }
 });
 
-// === Serve Chat Widget Demo Page (local dev only) ===
-if (!isVercel) {
-    app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-    });
-}
+// === Serve Chat Widget Demo Page (all environments) ===
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 // === Start Server (local dev only — Vercel imports the app directly) ===
 if (!isVercel) {

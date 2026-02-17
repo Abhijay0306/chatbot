@@ -4,25 +4,13 @@
         "api/index.js": {
             "maxDuration": 60,
             "memory": 1024,
-            "includeFiles": "src/**,data/index/**,data/sample_catalog.json,data/product_catalog.json"
+            "includeFiles": "src/**,data/index/**,data/sample_catalog.json,data/product_catalog.json,public/**"
         }
     },
     "rewrites": [
         {
-            "source": "/api/(.*)",
-            "destination": "/api/index.js"
-        },
-        {
-            "source": "/documents/(.*)",
-            "destination": "/api/index.js"
-        },
-        {
-            "source": "/",
-            "destination": "/public/index.html"
-        },
-        {
             "source": "/(.*)",
-            "destination": "/public/$1"
+            "destination": "/api/index.js"
         }
     ]
 }
