@@ -140,6 +140,23 @@ async function ensureReady(req, res, next) {
 app.use('/api/chat', ensureReady);
 app.use('/api/chat/stream', ensureReady);
 
+// === Technical Query Detection ===
+// Only show source document references for technical questions
+const TECHNICAL_PATTERNS = [
+    /\b(install|wire|wiring|connect|setup|mount|configure|calibrat|adjust|troubleshoot|repair|replace|maintain)/i,
+    /\b(spec|specification|dimension|rating|voltage|current|amp|watt|power|torque|speed|frequency|phase)/i,
+    /\b(pmp|tp-?2|cr-?150|pfr|upc|ph-?3|ph-?1000|load\s*control|power\s*sensor|power\s*cell)/i,
+    /\b(overload|underload|protection|sensor|relay|alarm|trip|fault|error|fail)/i,
+    /\b(manual|datasheet|diagram|schematic|drawing|part\s*number|model)/i,
+    /\b(motor|pump|compressor|conveyor|fan|blower|machine|application)/i,
+    /\b(modbus|communication|signal|output|input|analog|digital|setpoint)/i,
+    /\b(how\s+(to|do|does|can|should)|what\s+(is|are|does)|which|where)/i,
+];
+
+function isTechnicalQuery(query) {
+    return TECHNICAL_PATTERNS.some(pattern => pattern.test(query));
+}
+
 // === Health Check ===
 app.get('/api/health', async (req, res) => {
     // Trigger lazy init if needed (so health checks work on Vercel)
@@ -177,7 +194,7 @@ app.post('/api/chat', preProcessMiddleware, async (req, res) => {
         const topK = restrictions.maxContextChunks || config.rag.topK;
         const searchResults = await hybridSearch(query, { topK });
         const context = buildContext(searchResults);
-        const sources = buildSourceReferences(searchResults);
+        const sources = isTechnicalQuery(query) ? buildSourceReferences(searchResults) : [];
 
         // Generate LLM response
         const llmOptions = {};
@@ -243,7 +260,7 @@ app.post('/api/chat/stream', preProcessMiddleware, async (req, res) => {
         const topK = restrictions.maxContextChunks || config.rag.topK;
         const searchResults = await hybridSearch(query, { topK });
         const context = buildContext(searchResults);
-        const sources = buildSourceReferences(searchResults);
+        const sources = isTechnicalQuery(query) ? buildSourceReferences(searchResults) : [];
 
         // LLM options
         const llmOptions = {};

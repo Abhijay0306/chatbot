@@ -12,7 +12,7 @@ const config = {
     model: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
     baseUrl: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
     temperature: parseFloat(process.env.LLM_TEMPERATURE) || 0.1,
-    maxTokens: parseInt(process.env.LLM_MAX_TOKENS, 10) || 500,
+    maxTokens: parseInt(process.env.LLM_MAX_TOKENS, 10) || 300,
     maxContextTokens: parseInt(process.env.MAX_CONTEXT_TOKENS, 10) || 2000,
   },
 

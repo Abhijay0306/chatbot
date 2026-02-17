@@ -12,8 +12,14 @@
             primaryColor: '#0059B3',
             title: 'Load Controls Support',
             subtitle: 'Ask us about our products!',
-            placeholder: 'Ask about our products, installation, specs...',
-            welcomeMessage: "Hey there! 👋 I'm here to help with anything related to our Load Controls products — installation, specifications, troubleshooting, you name it. What can I help you with?",
+            placeholder: 'How can we help you today?',
+            welcomeMessage: "Hi, I'm here to help with anything related to our Load Controls products -- installation, specifications, troubleshooting, you name it. What can I help you with?",
+            quickLinks: [
+                { label: 'Data Sheet', icon: 'grid', url: 'https://www.loadcontrols.com/data-sheets' },
+                { label: 'Quick Start', icon: 'clock', url: 'https://www.loadcontrols.com/quick-start' },
+                { label: 'How to Install Videos', icon: 'video', url: 'https://www.loadcontrols.com/how-to-install-videos' },
+                { label: 'Installation Guide', icon: 'doc', url: 'https://www.loadcontrols.com/installation-guides' },
+            ],
         },
         isOpen: false,
         messages: [],
@@ -80,8 +86,30 @@
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
           </button>
-        </div>`;
+        </div>
+        ${this._buildQuickLinks()}`;
             document.body.appendChild(win);
+        },
+
+        _buildQuickLinks() {
+            if (!this.config.quickLinks || this.config.quickLinks.length === 0) return '';
+            const items = this.config.quickLinks.map(link => {
+                return `<a class="sc-quick-link" href="${link.url}" target="_blank" rel="noopener noreferrer">
+                    ${this._quickLinkIcon(link.icon)}
+                    <span>${link.label}</span>
+                </a>`;
+            }).join('');
+            return `<div class="sc-quick-links">${items}</div>`;
+        },
+
+        _quickLinkIcon(type) {
+            const icons = {
+                grid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>',
+                clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+                video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="2" y="4" width="15" height="16" rx="2"></rect><polygon points="22 8 17 12 22 16 22 8"></polygon></svg>',
+                doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+            };
+            return icons[type] || icons.doc;
         },
 
         _bindEvents() {
@@ -208,7 +236,7 @@
 
             const label = document.createElement('div');
             label.className = 'sc-sources-label';
-            label.textContent = '📄 Referenced Documents';
+            label.textContent = 'Referenced Documents';
             srcContainer.appendChild(label);
 
             for (const src of sources) {

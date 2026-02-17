@@ -480,6 +480,53 @@
   }
 }
 
+/* === Quick-Link Document Buttons === */
+.sc-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 16px 12px;
+  background: rgba(10, 14, 26, 0.6);
+  border-top: 1px solid var(--chat-border);
+}
+
+.sc-quick-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1px solid var(--chat-border);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--chat-text-muted);
+  font-size: 0.75rem;
+  font-family: var(--chat-font);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sc-quick-link:first-child {
+  border-color: var(--chat-primary);
+  color: var(--chat-primary-light);
+}
+
+.sc-quick-link:hover {
+  border-color: var(--chat-primary-light);
+  color: var(--chat-primary-light);
+  background: rgba(0, 89, 179, 0.1);
+}
+
+.sc-quick-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.sc-quick-link:hover svg {
+  opacity: 1;
+}
+
 /* === Mobile Responsive === */
 @media (max-width: 480px) {
   .sc-window {
