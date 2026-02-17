@@ -1,0 +1,162 @@
+[
+    {
+        "id": "pmp-25",
+        "name": "PMP-25 Load Control",
+        "description": "Motor load control for overload and underload protection. Monitors motor power consumption to detect jams, dull or broken tooling, loss of load, and overload conditions. Provides relay output for alarm or shutdown.",
+        "category": "Motor Load Controls",
+        "tags": [
+            "load-control",
+            "motor-protection",
+            "overload",
+            "underload",
+            "PMP-25"
+        ],
+        "url": "https://www.loadcontrols.com/products/pmp-25"
+    },
+    {
+        "id": "pmp-25-tp",
+        "name": "PMP-25 Pump Load Control with Tamper Proof Switch",
+        "description": "PMP-25 load control variant equipped with a tamper-proof setting switch to prevent unauthorized adjustment of setpoints. Ideal for applications requiring secured settings.",
+        "category": "Motor Load Controls",
+        "tags": [
+            "load-control",
+            "tamper-proof",
+            "pump",
+            "PMP-25"
+        ],
+        "url": "https://www.loadcontrols.com/products/pmp-25-tamper-proof"
+    },
+    {
+        "id": "tp-2",
+        "name": "TP-2 Compact Motor Power Sensor",
+        "description": "Compact motor power sensor that provides a linear DC output signal proportional to the true RMS power drawn by a motor. Used for monitoring, data acquisition, and process control applications.",
+        "category": "Power Sensors",
+        "tags": [
+            "power-sensor",
+            "compact",
+            "motor-monitoring",
+            "TP-2"
+        ],
+        "url": "https://www.loadcontrols.com/products/tp-2"
+    },
+    {
+        "id": "tp-2-1ph",
+        "name": "TP-2 Single Phase Motor Power Sensor",
+        "description": "Single-phase variant of the TP-2 compact motor power sensor. Designed for monitoring single-phase motor applications with linear DC output proportional to motor power.",
+        "category": "Power Sensors",
+        "tags": [
+            "power-sensor",
+            "single-phase",
+            "motor-monitoring",
+            "TP-2"
+        ],
+        "url": "https://www.loadcontrols.com/products/tp-2-single-phase"
+    },
+    {
+        "id": "cr-150",
+        "name": "CR-150 Fast Response Current Sensing Load Control",
+        "description": "Fast-response current sensing load control that monitors motor current to detect overload and underload conditions. Provides rapid response for applications requiring quick fault detection.",
+        "category": "Current Sensing Controls",
+        "tags": [
+            "current-sensing",
+            "fast-response",
+            "load-control",
+            "CR-150"
+        ],
+        "url": "https://www.loadcontrols.com/products/cr-150"
+    },
+    {
+        "id": "pfr-1550",
+        "name": "PFR-1550 Fast Response Compact Digital Load Controls",
+        "description": "Compact digital load control with fast response time. Features digital display and microprocessor-based control for precise motor load monitoring and protection.",
+        "category": "Digital Load Controls",
+        "tags": [
+            "digital",
+            "fast-response",
+            "compact",
+            "load-control",
+            "PFR-1550"
+        ],
+        "url": "https://www.loadcontrols.com/products/pfr-1550"
+    },
+    {
+        "id": "upc",
+        "name": "Model UPC Adjustable Capacity Power Sensor",
+        "description": "Universal Power Cell with adjustable capacity. Versatile power sensor that can be configured for a wide range of motor sizes and applications. Provides linear DC output proportional to motor power.",
+        "category": "Universal Power Cells",
+        "tags": [
+            "power-sensor",
+            "adjustable",
+            "universal",
+            "UPC"
+        ],
+        "url": "https://www.loadcontrols.com/products/upc"
+    },
+    {
+        "id": "upc-fr",
+        "name": "UPC-FR Fast Response Universal Power Cell",
+        "description": "Fast-response variant of the Universal Power Cell. Designed for applications requiring rapid detection of power changes, such as tool breakage monitoring and jam detection.",
+        "category": "Universal Power Cells",
+        "tags": [
+            "power-sensor",
+            "fast-response",
+            "universal",
+            "UPC-FR"
+        ],
+        "url": "https://www.loadcontrols.com/products/upc-fr"
+    },
+    {
+        "id": "upc-230",
+        "name": "UPC-230 Volt Power Supply Input",
+        "description": "Universal Power Cell configured for 230-volt power supply input. Same functionality as the standard UPC but designed for 230V systems.",
+        "category": "Universal Power Cells",
+        "tags": [
+            "power-sensor",
+            "230V",
+            "universal",
+            "UPC-230"
+        ],
+        "url": "https://www.loadcontrols.com/products/upc-230"
+    },
+    {
+        "id": "upc-lb",
+        "name": "UPC-LB Larger Holes",
+        "description": "Universal Power Cell variant with larger mounting holes for easier installation in various enclosure types and mounting configurations.",
+        "category": "Universal Power Cells",
+        "tags": [
+            "power-sensor",
+            "larger-holes",
+            "mounting",
+            "UPC-LB"
+        ],
+        "url": "https://www.loadcontrols.com/products/upc-lb"
+    },
+    {
+        "id": "upc-mb",
+        "name": "UPC-MB Modbus-Enabled Universal Power Cell",
+        "description": "Universal Power Cell with built-in Modbus RTU communication. Enables integration with PLCs, SCADA systems, and other industrial automation equipment for remote monitoring and control.",
+        "category": "Universal Power Cells",
+        "tags": [
+            "power-sensor",
+            "modbus",
+            "communication",
+            "automation",
+            "UPC-MB"
+        ],
+        "url": "https://www.loadcontrols.com/products/upc-mb"
+    },
+    {
+        "id": "ph-3-ph-1000",
+        "name": "Ultra Fast and Larger Power Cells (PH-3 and PH-1000)",
+        "description": "High-performance power cells for demanding applications. PH-3 provides ultra-fast response for critical monitoring. PH-1000 handles larger motor applications with higher power capacity.",
+        "category": "High Performance Power Cells",
+        "tags": [
+            "power-cell",
+            "ultra-fast",
+            "high-capacity",
+            "PH-3",
+            "PH-1000"
+        ],
+        "url": "https://www.loadcontrols.com/products/ph-3-ph-1000"
+    }
+]

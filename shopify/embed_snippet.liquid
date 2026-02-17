@@ -1,0 +1,29 @@
+{% comment %}
+  Load Controls Chat Widget — Shopify Embed Snippet
+  
+  Instructions:
+  1. In your Shopify Admin, go to Online Store → Themes → Edit Code
+  2. Open theme.liquid
+  3. Paste this snippet just before the closing </body> tag
+  4. Replace YOUR_SERVER_URL with your deployed chatbot server URL
+     (e.g., https://loadcontrols-bot.up.railway.app)
+{% endcomment %}
+
+<!-- Load Controls Chat Widget -->
+<link rel="stylesheet" href="https://YOUR_SERVER_URL/widget.css">
+<script src="https://YOUR_SERVER_URL/widget.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.StoreChat) {
+      StoreChat.init({
+        apiUrl: 'https://YOUR_SERVER_URL',
+        position: 'bottom-right',
+        primaryColor: '#0059B3',
+        title: 'Load Controls Support',
+        subtitle: 'Ask us about our products!',
+        placeholder: 'Ask about installation, specs, troubleshooting...',
+      });
+    }
+  });
+</script>
+<!-- End Load Controls Chat Widget -->
