@@ -1,6 +1,5 @@
 node_modules/
 .env
-data/Documents/
 *.log
 .DS_Store
 .vercel
